@@ -1,0 +1,53 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<dom-module id="push-pagina-email">
+  <style>
+   
+  </style>
+  <template class="fullbleed layout vertical">
+    <div class="flex">
+      <h1>Os últimos e-mails enviados pelo sistema push do TJDFT podem ser consultados e reenviados. Selecione o tipo de serviço que deseja consultar e clique no botão Enviar do respectivo item da lista para o qual deseja o reenvio de e-mail. Caso não receba o e-mail nas próximas 24 horas, certifique-se de que seu provedor de serviço de e-mail não esteja bloqueando os e-mails do endereço {{emailDoPush}}.</h1>
+
+      <paper-radio-group selected="{{sistema}}">
+        <paper-radio-button name="TODOS">TODOS</paper-radio-button>
+        <paper-radio-button name="SISTJ">1a Instância</paper-radio-button>
+        <paper-radio-button name="SISPL">2a Instância</paper-radio-button>
+        <paper-radio-button name="PUSH">Acompanhamento de Serviços</paper-radio-button>
+        <paper-radio-button name="SISTJWEB">1a Instância Web</paper-radio-button>
+      </paper-radio-group>
+      
+</br>
+</br>
+      <paper-button raised class="colored" role="button">
+        <paper-ripple></paper-ripple>
+        <iron-icon icon="refresh"></iron-icon> Atualizar
+      </paper-button>
+    </div>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'push-pagina-email',
+
+    properties: {
+      sistema: {
+        type: String,
+        value: 'TODOS'
+      }
+    },
+
+    ready: function () {
+      this.emailDoPush = 'push@tjdft.jus.br';
+    }
+  });
+})();
+</script>

@@ -1,0 +1,113 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+<dom-module id="push-pagina-cadastro">
+  <style>
+    :host {
+      display: block;
+    }
+    .margemTop20 {
+      margin-top: 20px;
+    }
+    .displayBlock{
+      display: block;
+    }
+  </style>
+  <template>
+    <h1>Dados cadastrais</h1>
+
+    <paper-input id="cpf" floatingLabel label="CPF" type="text" value="{{cpf}}" pattern="[\d]{11}" required error-message="CPF inválido" 
+    on-blur="validateCPF"></paper-input>
+    
+    <paper-checkbox id="advogado" class="margemTop20 displayBlock" on-click="handleAdvogado">Advogado</paper-checkbox>
+    <div class="margemTop20">Para advogados e procuradores, ao efetuar o cadastro, é obrigatório selecionar a opção advogado e preencher o campo com o número da OAB para continuar recebendo os andamentos automáticos dos processos que estão vinculados. (Preencha o campo N. OAB/Procurador conforme os exemplos: DF009999 ou PC999. Ou seja, após DF complete com zeros + sua OAB até ficar com 06(seis) números. Ex: OAB DF13 ao ser cadastrada ficará DF000013.</div>
+    
+    <template is="dom-if" if="{{mostraOAB}}">
+      <paper-input id="oabProcurador" floatingLabel label="OAB/Procurador" type="text" value="{{oabProcurador}}" required error-message="{{textoCampoObrigatorio}}" 
+      auto-validate></paper-input>
+    </template>
+
+    <paper-input id="nome" floatingLabel label="Nome" type="text" value="{{nome}}" required error-message="{{textoCampoObrigatorio}}" auto-validate></paper-input>
+    
+    <div class="margemTop20">
+      <label>Sexo:</label>
+      <paper-radio-group selected="{{sexo}}" required auto-validate>
+          <paper-radio-button name="M">MASCULINO</paper-radio-button>
+          <paper-radio-button name="F">FEMININO</paper-radio-button>
+      </paper-radio-group>
+    </div>
+
+    
+
+    <paper-input id="email" floatingLabel label="E-mail" type="email" value="{{email}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+    <!--paper-input id="telefone" floatingLabel label="Telefone" type="text" value="{{telefone}}"></paper-input>
+    <paper-input id="celular" floatingLabel label="Celular" type="text" value="{{celular}}"></paper-input-->
+
+    <paper-input-container always-float-label attr-for-value="value" >
+      <label>Telefone</label>
+      <telefone-input id="telefone" class="paper-input-input" ></telefone-input>
+    </paper-input-container>
+
+    <paper-input-container always-float-label attr-for-value="value" >
+      <label>Celular</label>
+      <telefone-input id="celular" class="paper-input-input" ></telefone-input>
+    </paper-input-container>
+
+    <div class="margemTop20">
+      <label>Habilitar SMS:</label>
+      <paper-radio-group selected="{{sms}}">
+          <paper-radio-button name="S">SIM</paper-radio-button>
+          <paper-radio-button name="N">NÃO</paper-radio-button>
+      </paper-radio-group>
+    </div>
+
+    <paper-input id="senha" floatingLabel label="Senha" type="password" value="{{senha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+    <paper-input id="confirmaSenha" floatingLabel label="Confirmar senha" type="password" value="{{confirmaSenha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+
+    <paper-button raised class="colored" role="button" on-click="gravar">
+        <paper-ripple></paper-ripple>
+        <iron-icon icon="check"></iron-icon> Gravar
+    </paper-button>
+
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'push-pagina-cadastro',
+
+    properties: {
+      mostraOAB: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      textoCampoObrigatorio: String
+    },
+    ready: function() {
+      this.textoCampoObrigatorio = "Campo obrigatório";
+    },
+    handleAdvogado: function() {
+      this.mostraOAB = !this.mostraOAB;
+    },
+    validateCPF: function() {
+      this.$.cpf.validate();
+    },
+    validateTel: function() {
+      this.$.telContainer.validate();
+    },
+    gravar: function () {
+      console.log(this.$.celular.value);
+    }
+
+  });
+})();
+</script>

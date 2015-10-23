@@ -8,23 +8,35 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<dom-module id="push-pagina-servicosAcompanhamento">
+<dom-module id="push-pagina-cadastrarPJ">
   <style>
     :host {
       display: block;
     }
+    .margin20 {
+      margin-top: 60px;
+    }
   </style>
   <template>
-    <h3>Selecione o(s) tipo(s) de serviço(s) que deseja receber do TJDFT.</h3>
+    <h3>
+      <p>Cadastre todos os processos que deseja acompanhar o andamento. Selecione a Instância e informe o número completo do Processo.</p>
+      <p>Exemplo:</p>  
+      <p>1ª Instância: 2007052101110. </p>
+      <p>2ª Instância (incluir a espécie): 2007092101110APC.</p>
+    </h3>
+    <br/><br/>
+      
+    <paper-radio-group selected="{{instancia}}">
+        <paper-radio-button name="1INSTANCIA">1ª Instância</paper-radio-button>
+        <paper-radio-button name="2INSTANCIA">2ª Instância</paper-radio-button>
+    </paper-radio-group>
+    
 
-    <paper-checkbox>Notícias do TJDFT</paper-checkbox>
-    <paper-checkbox>Informativo de Jurisprudência</paper-checkbox>
-</br>
-</br>
-</br>
+    <paper-input id="processo" floatingLabel label="Processo" type="text" value="{{processo}}"></paper-input>
+<br/><br>
     <paper-button raised class="colored" role="button">
       <paper-ripple></paper-ripple>
-      <iron-icon icon="check"></iron-icon> Cadastrar
+      <iron-icon icon="search"></iron-icon> Pesquisar
     </paper-button>
 
   </template>
@@ -32,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
 (function() {
   Polymer({
-    is: 'push-pagina-servicosAcompanhamento',
+    is: 'push-pagina-cadastrarPJ',
 
     properties: {
       foo: {

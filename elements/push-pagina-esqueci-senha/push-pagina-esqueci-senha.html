@@ -1,0 +1,47 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<dom-module id="push-pagina-esqueci-senha">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <h3>
+      Preencha os campos CPF/CNPJ e e-mail e enviaremos para o seu e-mail uma nova senha de acesso que poderá ser alterada na opção "Alterar Senha". Caso não receba o email nas próximas 24 horas, certifique-se que seu provedor de e-mail não esteja bloqueando os emails do endereço push@tjdft.jus.br.
+    </h3>
+
+    <paper-input id="cpf" floatingLabel label="CPF" type="text" value="{{cpf}}" pattern="[\d]{11}" required error-message="CPF inválido" 
+    on-blur="validateCPF"></paper-input>
+    <paper-input id="email" floatingLabel label="E-mail" type="email" value="{{email}}" required auto-validate></paper-input>
+<br/><br/>
+    <paper-button raised class="colored" role="button" on-click="enviarNovaSenha">
+        <paper-ripple></paper-ripple>
+        <iron-icon icon="check"></iron-icon> Enviar nova senha
+    </paper-button>
+
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'push-pagina-esqueci-senha',
+
+    properties: {
+      foo: {
+        type: String,
+        value: 'bar',
+        notify: true
+      }
+    }
+  });
+})();
+</script>

@@ -18,7 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <iron-ajax id="listaPA" url="processosPA.json" method="GET" handle-as="json"  last-response="{{dados}}" auto></iron-ajax>
 
-    <h1>Cadastre todos os processos administrativos que deseja acompanhar o andamento. Informe o número do Processo com o ano, exemplo: NNN/AAAA (o uso da barra é obrigatório), e clique no botão pesquisar. </h1>
+    <h3>Cadastre todos os processos administrativos que deseja acompanhar o andamento. Informe o número do Processo com o ano, exemplo: NNN/AAAA (o uso da barra é obrigatório), e clique no botão pesquisar. </h3>
 
     <paper-input id="processo" floatingLabel label="Processo" type="text" value="{{processo}}"></paper-input>
 </br>

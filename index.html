@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Polymer Starter Kit" />
-  <title>Polymer Starter Kit</title>
+  <title>TJDFT - Sistema Push</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- Chrome for Android theme color -->
@@ -40,7 +40,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
   <!-- Tile icon for Win8 (144x144) -->
-  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
@@ -62,12 +63,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background: #D32F2F;
       color: #fff;
     }
+    .brasao {
+      margin-top: 47px;
+      
+    }
+    .fundoBrasao {
+      background: url("images/fundo_cabeca.png") repeat-x scroll 0 0 transparent !important;
+      
+    }
+    .nomeSistema {
+      color: #808080;
+      font-size: 30px;
+    }
+    #texto-cabeca {
+      color: #808080;
+      font-size: 10pt;
+      letter-spacing: 1px;
+      margin-top: 45px;
+      text-transform: uppercase;
+    }
+
+    #texto-cabeca .poder {
+      color: #808080;
+      display: block;
+      font-size: 9pt;
+      text-transform: none;
+    }
+    #voltar {
+      margin-right: 24px;
+    }
   </style>
 </head>
 
 <body unresolved class="fullbleed layout vertical">
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
+    <iron-media-query query="(min-width: 1024px)" query-matches="{{queryMatches}}"></iron-media-query>
 
     <paper-drawer-panel id="paperDrawerPanel">
       <div drawer>
@@ -79,79 +110,181 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Drawer Content -->
           <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-              <a data-route="cadastrarProcessoJudicial" href="/">
-                <span>Cadastrar Processo Judicial</span>
-              </a>
+              
+              <template is="dom-if" if="{{logado}}">
+                <a data-route="inicio" href="/">
+                  <!--iron-icon icon="home"></iron-icon-->
+                  <span>Início</span>
+                </a>
+                <a data-route="cadastrarPJ" href="/cadastrarPJ">
+                  <!--iron-icon icon="account-balance"></iron-icon-->
+                  <span>Acompanhar Processo Judicial</span>
+                </a>
 
-              <a data-route="cadastrarPA" href="/cadastrarPA">
-                <span>Cadastrar Processo Administrativo</span>
-              </a>
+                <a data-route="cadastrarPA" href="/cadastrarPA">
+                  <!--iron-icon icon="communication:business"></iron-icon-->
+                  <span>Acompanhar Processo Administrativo</span>
+                </a>
 
-              <a data-route="selecionarServicosAcompanhamento" href="/selecionarServicosAcompanhamento">
-                <span>Serviços para Acompanhamento</span>
-              </a>
+                <a data-route="selecionarServicosAcompanhamento" href="/selecionarServicosAcompanhamento">
+                  <!--iron-icon icon="alarm"></iron-icon-->
+                  <span>Serviços para Acompanhamento</span>
+                </a>
 
-              <a data-route="cadastro" href="/cadastro">
-                <!--iron-icon icon="info"></iron-icon-->
-                <span>Alterar dados cadastrais</span>
-              </a>
+                <a data-route="cadastro" href="/cadastro">
+                  <!--iron-icon icon="create"></iron-icon-->
+                  <span>Alterar dados cadastrais</span>
+                </a>
 
-              <a data-route="emails" href="/emails">
-                <!--iron-icon icon="info"></iron-icon-->
-                <span>E-mails enviados</span>
-              </a>
+                <a data-route="alterarSenha" href="/alterarSenha">
+                  <!--iron-icon icon="create"></iron-icon-->
+                  <span>Alterar senha</span>
+                </a>
 
-              <a data-route="contact" href="/contact">
-                <!--iron-icon icon="mail"></iron-icon-->
-                <span>Contato</span>
-              </a>
+                <a data-route="emails" href="/emails">
+                  <!--iron-icon icon="mail"></iron-icon-->
+                  <span>E-mails enviados</span>
+                </a>
+
+                <a data-route="contact" href="/contact">
+                  <!--iron-icon icon="help"></iron-icon-->
+                  <span>Contato</span>
+                </a>
+                          
+                <a id="sair" data-route="sair" href="/sair">
+                  <!--iron-icon icon="power-settings-new"></iron-icon-->
+                  <span>Sair</span>
+                </a>
+              </template>
           </paper-menu>
       </div>
-      <paper-header-panel main mode="waterfall-tall">
+      <paper-header-panel main mode="">
 
         <!-- Main Toolbar -->
-        <paper-toolbar id="mainToolbar">
-          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-          <span class="flex"></span>
+<template is="dom-if" if="{{queryMatches}}">
+        <paper-toolbar id="mainToolbar" class="medium-tall fundoBrasao">
+          
+          <template is="dom-if" if="{{!botaoVoltar}}">
+            <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          </template>
+          <template is="dom-if" if="{{botaoVoltar}}">
+              <paper-icon-button id="voltar" icon="arrow-back" on-click="voltar"></paper-icon-button>     
+          </template>
+          <template is="dom-if" if="{{queryMatches}}">
+            <img class="brasao" src="images/logo.jpg"></img>
+            <div>
+                <div id="texto-cabeca">
+                  <span class="poder">Poder Judiciário da União</span>Tribunal de Justiça do Distrito Federal e dos Territórios 
+                
+                </div>
+                <div class="nomeSistema">Sistema Push</div>
+            </div>
+          </template>
+          <template is="dom-if" if="{{!queryMatches}}">
+            <div class="nomeSistema">Sistema Push</div>
+          </template>
+            
+          <!--span class="flex"></span-->
 
           <!-- Toolbar icons -->
-          <paper-icon-button icon="refresh"></paper-icon-button>
+          <!--paper-icon-button icon="refresh"></paper-icon-button-->
           <!--paper-icon-button icon="search"></paper-icon-button-->
 
           <!-- Application name -->
-          <div class="middle paper-font-display2 app-name">Push - TJDFT</div>
+          
 
           <!-- Application sub title -->
-          <div class="bottom title"></div>
+          <!--div class="bottom title"></div-->
 
         </paper-toolbar>
+</template>
+<template is="dom-if" if="{{!queryMatches}}">
+        <paper-toolbar id="mainToolbar">
+          
+          <template is="dom-if" if="{{!botaoVoltar}}">
+            <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          </template>
+          <template is="dom-if" if="{{botaoVoltar}}">
+              <paper-icon-button id="voltar" icon="arrow-back" on-click="voltar"></paper-icon-button>     
+          </template>
+          <div class="nomeSistema">Sistema Push</div>
+            
+          <!--span class="flex"></span-->
 
+          <!-- Toolbar icons -->
+          <!--paper-icon-button icon="refresh"></paper-icon-button-->
+          <!--paper-icon-button icon="search"></paper-icon-button-->
+
+          <!-- Application name -->
+          
+
+          <!-- Application sub title -->
+          <!--div class="bottom title"></div-->
+
+        </paper-toolbar>
+</template>
         <!-- Main Content -->
         <div class="flex">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
-            <section data-route="cadastrarProcessoJudicial">
-              <h1>Os serviços do Sistema Push são gratuitos e consistem em um serviço auxiliar meramente informativo, não dispensando o uso dos meios oficiais de comunicação para a produção de efeitos legais.</h1>
+            <section data-route="login">
+              <paper-material elevation="1">
+                <push-pagina-login></push-pagina-login>
+              </paper-material>
+            </section>
+
+            <section data-route="esqueciSenha">
+              <paper-material elevation="1">
+                <push-pagina-esqueci-senha></push-pagina-esqueci-senha>
+              </paper-material>
+            </section>
+
+            <section data-route="inicio">
+              <paper-material elevation="1">
+                <h1>Os serviços do Sistema Push são gratuitos e consistem em um serviço auxiliar meramente informativo, não dispensando o uso dos meios oficiais de comunicação para a produção de efeitos legais.</h1>
+              </paper-material>
+            </section>
+
+            <section data-route="cadastrarPJ">
+              <paper-material elevation="1">
+                <push-pagina-cadastrarPJ></push-pagina-cadastrarPJ>
+              </paper-material>
             </section>
 
             <section data-route="cadastrarPA">
-              <push-pagina-cadastrarPA></push-pagina-cadastrarPA>
+              <paper-material elevation="1">
+                <push-pagina-cadastrarPA></push-pagina-cadastrarPA>
+              </paper-material>
             </section>
 
             <section data-route="cadastro">
-              <push-pagina-cadastro></push-pagina-cadastro>
+              <paper-material elevation="1">
+                <push-pagina-cadastro></push-pagina-cadastro>
+              </paper-material>
+            </section>
+
+            <section data-route="alterarSenha">
+              <paper-material elevation="1">
+                <push-pagina-alterar-senha></push-pagina-alterar-senha>
+              </paper-material>
             </section>
 
             <section data-route="emails">
-              <push-pagina-email></push-pagina-email>
+              <paper-material elevation="1">
+                <push-pagina-email></push-pagina-email>
+              </paper-material>
             </section>
 
             <section data-route="selecionarServicosAcompanhamento">
-              <push-pagina-servicosAcompanhamento></push-pagina-servicosAcompanhamento>
+              <paper-material elevation="1">
+                <push-pagina-servicosAcompanhamento></push-pagina-servicosAcompanhamento>
+              </paper-material>
             </section>
 
             <section data-route="contact">
-              <h1>E-mail da Central de Atendimento ao Usuário: cau@tjdft.jus.br</h1>
+              <paper-material elevation="1">
+                <h1>E-mail da Central de Atendimento ao Usuário: cau@tjdft.jus.br</h1>
+              </paper-material>
             </section>
 
           </iron-pages>
@@ -174,6 +307,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </platinum-sw-register>
 
   </template>
+ 
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>

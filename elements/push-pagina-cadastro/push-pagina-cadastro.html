@@ -47,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     
 
-    <paper-input id="email" floatingLabel label="E-mail" type="email" value="{{email}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+    <paper-input id="email" floatingLabel label="E-mail" type="email" value="{{email}}" required auto-validate></paper-input>
     <!--paper-input id="telefone" floatingLabel label="Telefone" type="text" value="{{telefone}}"></paper-input>
     <paper-input id="celular" floatingLabel label="Celular" type="text" value="{{celular}}"></paper-input-->
 
@@ -68,10 +68,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-radio-button name="N">NÃO</paper-radio-button>
       </paper-radio-group>
     </div>
-
-    <paper-input id="senha" floatingLabel label="Senha" type="password" value="{{senha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
-    <paper-input id="confirmaSenha" floatingLabel label="Confirmar senha" type="password" value="{{confirmaSenha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
-
+    <template is="dom-if" if="{{novoCadastro}}">
+      <paper-input id="senha" floatingLabel label="Senha" type="password" value="{{senha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+      <paper-input id="confirmaSenha" floatingLabel label="Confirmar senha" type="password" value="{{confirmaSenha}}" required auto-validate error-message="{{textoCampoObrigatorio}}"></paper-input>
+    </template>
+</br></br>
+   
     <paper-button raised class="colored" role="button" on-click="gravar">
         <paper-ripple></paper-ripple>
         <iron-icon icon="check"></iron-icon> Gravar
@@ -88,6 +90,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       mostraOAB: {
         type: Boolean,
         value: false,
+        notify: true
+      },
+      novoCadastro: {
+        type: Boolean,
+        value: true,
         notify: true
       },
       textoCampoObrigatorio: String

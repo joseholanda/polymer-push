@@ -15,24 +15,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
+
+    function isLogado(rota) {
+      if (app.logado) {
+        app.route = rota;
+      }else {
+        app.route = 'login';
+      }
+    }
+
+    page('/alterarSenha', function () {
+      isLogado('alterarSenha');
+    });
+
+    page('/esqueciSenha', function () {
+      app.addHistoricoDePaginas('login');
+      app.route = 'esqueciSenha';
+    });
+
+    page('/login', function () {
+      app.route = 'login';
+    });
+
+     page('/sair', function () {
+      app.logout();
+      app.route = 'login';
+    });
+
     page('/', function () {
-      app.route = 'cadastrarProcessoJudicial';
+      isLogado('inicio');
+    });
+
+    page('/cadastrarPJ', function () {
+      isLogado('cadastrarPJ');
     });
 
     page('/cadastrarPA', function () {
-      app.route = 'cadastrarPA';
+      isLogado('cadastrarPA');
     });
 
     page('/selecionarServicosAcompanhamento', function () {
-      app.route = 'selecionarServicosAcompanhamento';
+      isLogado('selecionarServicosAcompanhamento');
     });
 
     page('/cadastro', function () {
-      app.route = 'cadastro';
+      isLogado('cadastro');
     });
 
     page('/emails', function () {
-      app.route = 'emails';
+      isLogado('emails');
     });
 
     page('/users/:name', function (data) {
@@ -41,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('/contact', function () {
-      app.route = 'contact';
+      isLogado('contact');
     });
 
     // add #! before urls
